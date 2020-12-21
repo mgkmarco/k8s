@@ -7,5 +7,5 @@ Devops training, learning, resources, etc...
 
 <a name="refs"></a>
 ## Further Reading & References
-- [Udemy](https://www.udemy.com/course/learn-devops-the-complete-kubernetes-course/learn/lecture/6121104#overview)
+- [Udemy - Learn DevOps: The Complete Kubernetes Course](https://www.udemy.com/course/learn-devops-the-complete-kubernetes-course/learn/lecture/6121104#overview)
 - [Andrew Lock - Intro to Kubernetes](https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-1-an-introduction-to-kubernetes/)
