@@ -20,8 +20,6 @@ Devops training, learning, resources, etc...
 ----------------
 
 
-52.59.221.238
-
 Link to the course:
 	## https://www.udemy.com/course/learn-devops-the-complete-kubernetes-course/
 
@@ -43,6 +41,8 @@ Linux notes:
 - Misc
 	## cp -a . ~/docker-demo //will copy recursively even hidden files from the current dir to the ~/docker-demo directory 
 	## curl localhost:port
+	## echo -n "<string>" | base64 // will output the <string> to base64
+	## Fix DNS resolution when using WSL2 which will timeout on the kubectl connection https://gist.github.com/coltenkrauter/608cfe02319ce60facd76373249b8ca6
 	
 - DNS Troubleshooting 
 	## sudo apt-get install bind9-host 
@@ -59,9 +59,9 @@ Linux notes:
 	## minikube service <name-of-the-service> --url // If the service is exposed, this will list its url 
 
 - KOPS 
-	## kops create cluster --name=kubernetes.mgkmarco.tk --state=s3://kops-state-udemy-k8s-complete --zones=eu-central-1a --node-count=2 --node-size=t2.micro --master-size=t2.micro --dns-zone=kubernetes.mgkmarco.tk		
+	## kops create cluster --name=kubernetes.mgkmarco.tk --state=s3://kops-state-85b07a1c-4d75-4809-92b9-b089d002a2af --zones=eu-central-1a --node-count=2 --node-size=t2.micro --master-size=t2.micro --dns-zone=kubernetes.mgkmarco.tk		
 		### To get the ZONE when using AWS, go to EC2 and navigate to the current region. From there you should get the zone details
-	## kops delete cluster kubernetes.mgkmarco.tk --state=s3://kops-state-udemy-k8s-complete
+	## kops delete cluster kubernetes.mgkmarco.tk --state=s3://kops-state-85b07a1c-4d75-4809-92b9-b089d002a2af
 	## kops validate cluster --state=s3://kops-state-udemy-k8s-complete
 	
 - KubeCtl
@@ -69,7 +69,7 @@ Linux notes:
 	## kubectl get services
 	## kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
 	## kubectl create -f <location-of-the-yml>  // -f flag represents to get the filename for the configuration yml
-	## kubectl expose deployment hello-minikube --type=NodePort --port=8080
+	## kubectl expose deployment hello-minikube --type=NodePort 
 	## kubectl expose pod mgkmarco.nodehelloworld.example.com --type=NodePort --port=1234 --name=helloworld-service //to expose a pod 
 	## kubectl get pod // Get information about all running pods
 	## kubectl describe pod <pod> // Describe one pod
@@ -80,7 +80,7 @@ Linux notes:
 	## kubectl attach <podname> -i //Attach to the pod. Can be used to see logs etc...
 	## kubectl exec <pod> -- command //Execute a command on the pod
 	## kubectl logs <pod> // maybe there are some logs 
-	## kubectl label pods <pod> mylabel=awesome //Add a new label to a pod
+	## kubectl label pods <pod> mylabel=awesome //Add a new label to a pod, work also for a node
 	## kubectl run -i --tty busybox --image=busybox --restart=Never -- sh //Run a shell in a pod - very useful for debugging
 	## kubectl get deployments // Get information on current deployments
 	## kubectl get rs // Get information about the replica sets
@@ -93,5 +93,15 @@ Linux notes:
 	## kubectl rollout undo deployment/helloworld-deployment // Rollback to previous version
 	## kubectl rollout undo deployment/helloworld-deployment --to-revision=n // Rollback to any version version
 	## kubectl cluster-info dump
+	## kubectl api-resources --verbs=list -o name | xargs -n 1 kubectl get //to get all the kinds 
 	
+	
+Cluster is starting.  It should be ready in a few minutes.
+
+Suggestions:
+ * validate cluster: kops validate cluster --wait 10m
+ * list nodes: kubectl get nodes --show-labels
+ * ssh to the master: ssh -i ~/.ssh/id_rsa ubuntu@api.kubernetes.mgkmarco.tk
+ * the ubuntu user is specific to Ubuntu. If not using Ubuntu please use the appropriate user based on your OS.
+ * read about installing addons at: https://kops.sigs.k8s.io/operations/addons.
 	
